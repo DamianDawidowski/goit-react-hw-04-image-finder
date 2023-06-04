@@ -1,23 +1,20 @@
-  import Modal from 'components/Modal/Modal';
-import css from '../../styles.module.css';
+import Modal from 'components/Modal/Modal';
+import css from './ImageGalleryItem.module.css';
 import propTypes from 'prop-types';
 import { Component } from 'react';
- 
+
 class ImageGalleryItem extends Component {
   // const ImageGalleryItem = ({ webformatURL, largeImageURL }) => {
 
   constructor() {
     super();
     this.state = {
-     isShown: false,
+      isShown: false,
     };
-       
   }
   handleClick = ev => {
-       console.log(this.state.isShown);
-   this.setState({ isShown: !this.state.isShown });  
-    console.log('ddd ' + this.state.isShown);
-  }
+    this.setState({ isShown: !this.state.isShown });
+  };
 
   render() {
     let isShown = this.state.isShown;

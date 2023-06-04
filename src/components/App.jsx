@@ -1,11 +1,11 @@
-// import css from 'styles.module.css';
-
 import Searchbar from './Searchbar/Searchbar';
-
 import axios from 'axios';
 import React, { Component } from 'react';
 import Loader from './Loader/Loader';
 import ImageGallery from './ImageGallery/ImageGallery';
+import Button from './Button/Button';
+import css from './App.module.css'
+ 
 
 class App extends Component {
   constructor() {
@@ -16,22 +16,10 @@ class App extends Component {
       isLoading: false,
       error: null,
       page: 1,
+      showButton: false,
     };
   }
 
-  // async componentDidMount() {
-  //   this.setState({ isLoading: true });
-  //   const response = await axios.get(
-  //     `https://pixabay.com/api/?q=${this.state.query}&page=1&key=34020653-837b1231ff9ac2e46753275a8&q&image_type=photo&orientation=horizontal&per_page=5`
-  //   );
-
-  //   this.setState({
-  //     results: response.data.hits,
-  //     isLoading: false,
-  //   });
-  //   console.log('zapytanie to: ' + this.state.query);
-  //   // this.setState({ images: null });
-  // }
   SwitchLoading() {
     this.setState(({ isLoading }) => ({ isLoading: !isLoading }));
   }
@@ -42,54 +30,48 @@ class App extends Component {
   componentDidUpdate(_prevProps, prevState) {
     if (prevState.query !== this.state.query) {
       this.setState({ results: [], page: 1, error: null });
-       this.getPictures();
+      this.getPictures();
     }
   }
 
   getPictures = async () => {
     let query = this.state.query;
     let page = this.state.page;
-    console.log('1 state query is: ' + query);
+
     this.SwitchLoading();
     try {
       const response = await axios.get(
         `https://pixabay.com/api/?q=${query}&page=${page}&key=34020653-837b1231ff9ac2e46753275a8&q&image_type=photo&orientation=horizontal&per_page=12`
       );
       this.setState(({ results }) => ({
-        results: response.data.hits,
-        
+        results: [...results, ...response.data.hits],
+        page: page + 1,
       }));
-      console.log('new results are: ' + this.response.data.hits);
     } catch (err) {
       this.setState({ error: err });
     } finally {
-      //     console.log('1 loading is: ' + this.state.isLoading);
       this.SwitchLoading();
-      //    console.log('2 loading is: ' + this.state.isLoading);
     }
   };
 
   getQuery = ev => {
     const query = ev.query;
-    console.log('ev is: ' + ev.query);
+
     if (this.props.query !== query) {
-      //  console.log('works'  );
       this.setState({ query: query });
     }
-    console.log('2 state query is: ' + this.state.query);
   };
 
   render() {
     const { results, isLoading } = this.state;
-    //console.log(results);
+
     return (
-      <div>
+      <div className={css.App}>
         {isLoading && <Loader />}
-        <Searchbar onSubmit={this.getQuery}  />
-        {results.length > 0 ? (
-          <ImageGallery images={results} />
-        ) : (
-          <p>BRAK OBRAZKOW</p>
+        <Searchbar onSubmit={this.getQuery} />
+        {results.length > 0 ? <ImageGallery images={results} /> : null}
+        {!isLoading && results.length >= 15 && (
+          <Button getPictures={this.getPictures} />
         )}
       </div>
     );
