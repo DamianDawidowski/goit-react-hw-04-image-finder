@@ -33,9 +33,7 @@ export class Searchbar extends Component {
   }
 }
 Searchbar.propTypes = {
-  number: PropTypes.string,
-  name: PropTypes.string,
-  getquery: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default Searchbar;

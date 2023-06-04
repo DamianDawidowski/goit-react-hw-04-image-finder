@@ -4,8 +4,6 @@ import propTypes from 'prop-types';
 import { Component } from 'react';
 
 class ImageGalleryItem extends Component {
-  // const ImageGalleryItem = ({ webformatURL, largeImageURL }) => {
-
   constructor() {
     super();
     this.state = {
@@ -30,9 +28,8 @@ class ImageGalleryItem extends Component {
   }
 }
 ImageGalleryItem.propTypes = {
-  avatar: propTypes.string,
-  name: propTypes.string.isRequired,
-  isOnline: propTypes.bool,
+  webformatURL: propTypes.string.isRequired,
+  largeImageURL: propTypes.string,
 };
 
 export default ImageGalleryItem;

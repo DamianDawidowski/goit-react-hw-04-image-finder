@@ -12,9 +12,8 @@ const Modal = ({ largeImageURL, handleClick }) => {
 };
 
 Modal.propTypes = {
-  avatar: propTypes.string,
-  name: propTypes.string.isRequired,
-  isOnline: propTypes.bool,
+  largeImageURL: propTypes.string,
+  handleClick: propTypes.func.isRequired,
 };
 
 export default Modal;
