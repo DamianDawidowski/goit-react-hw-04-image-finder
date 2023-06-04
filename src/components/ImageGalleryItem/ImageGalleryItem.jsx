@@ -1,4 +1,4 @@
-// import Modal from 'components/Modal/Modal';
+  import Modal from 'components/Modal/Modal';
 import css from '../../styles.module.css';
 import propTypes from 'prop-types';
 import { Component } from 'react';
@@ -11,19 +11,23 @@ class ImageGalleryItem extends Component {
     this.state = {
      isShown: false,
     };
+       
   }
-    handleClick = ev => {
-   this.setState({isShown: false})  
-    console.log("ddd "+this.isShown);
+  handleClick = ev => {
+       console.log(this.state.isShown);
+   this.setState({ isShown: !this.state.isShown });  
+    console.log('ddd ' + this.state.isShown);
   }
 
   render() {
-    const { webformatURL } = this.props;
+    let isShown = this.state.isShown;
+    const { webformatURL, largeImageURL } = this.props;
     return (
       <li className={css.ImageGalleryItem + ' ' + css.ImageGalleryItemImage}>
         <img src={webformatURL} alt="_blank" onClick={this.handleClick} />
-        {/* {isShown && <Modal largeImageURL={largeImageURL} />} */}
-        {this.isShown && <p>AAAA</p>}
+        {isShown && (
+          <Modal largeImageURL={largeImageURL} handleClick={this.handleClick} />
+        )}
       </li>
     );
   }

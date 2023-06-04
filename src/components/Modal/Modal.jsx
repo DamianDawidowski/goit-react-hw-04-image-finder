@@ -1,9 +1,9 @@
 import css from '../../styles.module.css';
 import propTypes from 'prop-types';
 
-const Modal = ({   largeImageURL }) => {
+const Modal = ({ largeImageURL, handleClick }) => {
   return (
-    <div className={css.Overlay}>
+    <div className={css.Overlay} onClick={e => handleClick()}>
       <div className={css.Modal}>
         <img src={largeImageURL} alt="" />
       </div>
