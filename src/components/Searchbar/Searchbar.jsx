@@ -7,7 +7,7 @@ export class Searchbar extends Component {
     event.preventDefault();
     const { onSubmit } = this.props;
     const query = event.target.name.value;
-    onSubmit({ query });
+    onSubmit(query);
     event.target.reset();
   };
 
@@ -23,8 +23,8 @@ export class Searchbar extends Component {
             className={css.SearchFormInput}
             type="text"
             name="name"
-            autocomplete="off"
-            autofocus
+            autoComplete="off"
+            autoFocus
             placeholder="Search images and photos"
           />
         </form>
