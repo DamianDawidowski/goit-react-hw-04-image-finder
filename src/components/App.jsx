@@ -52,7 +52,7 @@ class App extends Component {
   }
 
   loadMore = () => {
-    this.setState({ page: this.page + 1 });
+    this.setState(({ page }) => ({ page: page + 1 }));
   };
 
   getPictures = async () => {
@@ -83,7 +83,7 @@ class App extends Component {
   };
 
   getQuery = query => {
-    if (this.props.query !== query) {
+    if (this.state.query !== query) {
       this.setState({ query: query });
     }
   };
