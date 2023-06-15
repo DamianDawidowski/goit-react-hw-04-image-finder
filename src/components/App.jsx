@@ -1,6 +1,7 @@
 import Searchbar from './Searchbar/Searchbar';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+// import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import Loader from './Loader/Loader';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
@@ -30,6 +31,7 @@ function  App()  {
     } 
    
     const editModal = ev => {
+      getPictures();
     setLargeImageURL( ev.target.dataset.source ); 
      toggleModal();
   };
