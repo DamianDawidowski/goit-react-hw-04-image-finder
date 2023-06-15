@@ -1,7 +1,6 @@
 import Searchbar from './Searchbar/Searchbar';
 import axios from 'axios';
-// import React, { useEffect, useState } from 'react';
-import React, {  useState } from 'react';
+  import React, { useEffect, useState } from 'react'; 
 import Loader from './Loader/Loader';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
@@ -19,31 +18,23 @@ function  App()  {
   const [error, setError] = useState(null); 
   const [largeImageURL, setLargeImageURL] = useState("");
   const [numberOfPages, setNumberOfPages] = useState(0);
-
   
-  const switchLoading = () => {
-    setIsLoading(!isLoading);
-   
-  }
-
   const  toggleModal = () => {
     setShowModal(!showModal) 
     } 
    
-    const editModal = ev => {
-      getPictures();
+    const editModal = ev => { 
     setLargeImageURL( ev.target.dataset.source ); 
      toggleModal();
   };
 
-  // useEffect(() => {
-  //   if (!query) {
-  //     setPage(1);
-  //     setError(null);
-  //     setResults([]);
-  //   }
-  //   getPictures();
-  // }, [query, page]);
+  useEffect(() => {
+    if (!query) {
+      setPage(1);
+      setError(null);
+      setResults([]);
+    } else getPictures();
+  }, [query, page]);
 
  
 
@@ -52,7 +43,7 @@ function  App()  {
   };
 
   const  getPictures = async () => { 
-     switchLoading();
+    setIsLoading(true); 
     try { 
       const response = await axios.get(
         `https://pixabay.com/api/?q=${query}&page=${page}&key=34020653-837b1231ff9ac2e46753275a8&image_type=photo&orientation=horizontal&per_page=12`
@@ -65,16 +56,14 @@ function  App()  {
     
     } catch   {
       setError( 'Please try again.' );
-    } finally {
-       switchLoading(); 
+    } finally { 
+      setIsLoading(false); 
     }
   };
   
   const  getQuery = query => {
     setQuery(query)
-  };
- 
-
+  }; 
     return (
       <div className={css.App}>
         <Searchbar onSubmit={ getQuery} />
@@ -93,6 +82,5 @@ function  App()  {
       </div>
     );
   }
- 
-
+  
 export { App };
