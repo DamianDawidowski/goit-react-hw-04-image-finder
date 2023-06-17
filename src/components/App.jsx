@@ -29,11 +29,38 @@ function  App()  {
   };
 
   useEffect(() => {
+    console.log('works1')
     if (!query) {
       setPage(1);
       setError(null);
       setResults([]);
-    } else getPictures();
+    } else 
+    {
+    const  getPictures = async () => { 
+      console.log('works2')
+      setIsLoading(true); 
+      try { 
+        const response = await axios.get(
+          `https://pixabay.com/api/?q=${query}&page=${page}&key=34020653-837b1231ff9ac2e46753275a8&image_type=photo&orientation=horizontal&per_page=12`
+        );
+        if (response.data.hits.length === 0) {
+          setError( `No results found for: ${ query}`);
+        }  
+       setResults(results => [...results, ...response.data.hits]);
+        setNumberOfPages(Math.ceil(response.data.totalHits / 12)); 
+      
+      } catch   {
+        setError( 'Please try again.' );
+      } finally { 
+        setIsLoading(false); 
+      }
+    };
+
+    getPictures(query, page);
+ 
+  }
+ 
+
   }, [query, page]);
 
  
@@ -42,31 +69,14 @@ function  App()  {
     setPage( page + 1  ) ;
   };
 
-  const  getPictures = async () => { 
-    setIsLoading(true); 
-    try { 
-      const response = await axios.get(
-        `https://pixabay.com/api/?q=${query}&page=${page}&key=34020653-837b1231ff9ac2e46753275a8&image_type=photo&orientation=horizontal&per_page=12`
-      );
-      if (response.data.hits.length === 0) {
-        setError( `No results found for: ${ query}`);
-      } 
-      setResults( [...results, ...response.data.hits]); 
-      setNumberOfPages(Math.ceil(response.data.totalHits / 12)); 
-    
-    } catch   {
-      setError( 'Please try again.' );
-    } finally { 
-      setIsLoading(false); 
-    }
-  };
+ 
   
   const  getQuery = query => {
     setQuery(query)
   }; 
     return (
       <div className={css.App}>
-        <Searchbar onSubmit={ getQuery} />
+        <Searchbar onSubmit={getQuery} />
         {error && <Error errorText={error} />}
         {isLoading && <Loader />}
         {results.length > 0 && (
