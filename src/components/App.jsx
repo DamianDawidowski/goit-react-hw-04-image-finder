@@ -14,8 +14,7 @@ function  App()  {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  // const [showButton, setShowButton] = useState(false);
+  const [showModal, setShowModal] = useState(false); 
   const [error, setError] = useState(null); 
   const [largeImageURL, setLargeImageURL] = useState("");
   const [numberOfPages, setNumberOfPages] = useState(0);
