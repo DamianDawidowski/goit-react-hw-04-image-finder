@@ -28,16 +28,14 @@ function  App()  {
      toggleModal();
   };
 
-  useEffect(() => {
-    console.log('works1')
+  useEffect(() => { 
     if (!query) {
       setPage(1);
       setError(null);
       setResults([]);
     } else 
     {
-    const  getPictures = async () => { 
-      console.log('works2')
+    const  getPictures = async () => {  
       setIsLoading(true); 
       try { 
         const response = await axios.get(
@@ -58,19 +56,13 @@ function  App()  {
 
     getPictures(query, page);
  
-  }
- 
-
+  } 
   }, [query, page]);
-
  
-
   const  loadMore = () => {
     setPage( page + 1  ) ;
   };
-
  
-  
   const  getQuery = query => {
     setQuery(query)
   }; 
