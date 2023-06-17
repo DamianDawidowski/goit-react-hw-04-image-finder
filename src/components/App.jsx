@@ -1,6 +1,6 @@
 import Searchbar from './Searchbar/Searchbar';
 import axios from 'axios';
-  import React, { useEffect, useState } from 'react'; 
+import React, { useEffect, useState } from 'react'; 
 import Loader from './Loader/Loader';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
@@ -15,6 +15,7 @@ function  App()  {
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  // const [showButton, setShowButton] = useState(false);
   const [error, setError] = useState(null); 
   const [largeImageURL, setLargeImageURL] = useState("");
   const [numberOfPages, setNumberOfPages] = useState(0);
@@ -29,13 +30,14 @@ function  App()  {
   };
 
   useEffect(() => { 
-    if (!query) {
+    if (!query) { 
       setPage(1);
-      setError(null);
+    
       setResults([]);
     } else 
     {
     const  getPictures = async () => {  
+      setError(null);
       setIsLoading(true); 
       try { 
         const response = await axios.get(
@@ -46,7 +48,8 @@ function  App()  {
         }  
        setResults(results => [...results, ...response.data.hits]);
         setNumberOfPages(Math.ceil(response.data.totalHits / 12)); 
-      
+   
+ 
       } catch   {
         setError( 'Please try again.' );
       } finally { 
@@ -64,7 +67,9 @@ function  App()  {
   };
  
   const  getQuery = query => {
-    setQuery(query)
+    
+    setResults([]);
+    setQuery(query);
   }; 
     return (
       <div className={css.App}>
